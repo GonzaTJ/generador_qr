@@ -1,7 +1,6 @@
 import qrcode
 import streamlit as st
 
-filename = "/qr_code.png"
 
 def generador_qr(url, filename):
     qr = qrcode.QRCode(
@@ -13,8 +12,8 @@ def generador_qr(url, filename):
     qr.add_data(url)
     qr.make(fit=True)
 
-    img = qr.make_image(fill_color="black", back_color="white")
-    img.save(filename)
+    filename  = qr.make_image(fill_color="black", back_color="white")
+    return filename
 
 
 #-------------- APP CON STREAMLIT-------------
@@ -30,4 +29,4 @@ if st.button("Generar codigo QR"):
     st.image(filename, use_column_width=True)
     with open(filename, "rb") as f:
         image_data = f.read()
-    download = st.download_button(label="Descargar QR", data = image_data )
+    download = st.download_button(label="Descargar QR", data = image_data, file_name = "imagen.png" )
