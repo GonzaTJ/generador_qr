@@ -20,7 +20,9 @@ def generador_qr(url, filename):
 #-------------- APP CON STREAMLIT-------------
 
 st.set_page_config(page_title="Generador de QR",page_icon="",layout="centered")
+
 st.title("Generador imagen QR")
+
 url = st.text_input("Ingresa el URL para generar el QR:")
 
 if st.button("Generar codigo QR"):
@@ -28,4 +30,4 @@ if st.button("Generar codigo QR"):
     st.image(filename, use_column_width=True)
     with open(filename, "rb") as f:
         image_data = f.read()
-    download = st.download_button(label="Descargar QR", data = image_data, file_name = "imagen.png" )
+    download = st.download_button(label="Descargar QR", data = image_data )
