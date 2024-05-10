@@ -1,7 +1,5 @@
-import qrcode
 import streamlit as st
-
-filename = "/qr_code.png"
+import qrcode
 
 def generador_qr(url, filename):
     qr = qrcode.QRCode(
@@ -16,18 +14,20 @@ def generador_qr(url, filename):
     img = qr.make_image(fill_color="black", back_color="white")
     img.save(filename)
 
+st.title("Generador de QR")
 
-#-------------- APP CON STREAMLIT-------------
+# Campo de texto para ingresar la URL
+url = st.text_input("Ingrese la URL:")
 
-st.set_page_config(page_title="Generador de QR",page_icon="",layout="centered")
-
-st.title("Generador imagen QR")
-
-url = st.text_input("Ingresa el URL para generar el QR:")
-
-if st.button("Generar codigo QR"):
-    generador_qr(url, filename)
-    st.image(filename, use_column_width=True)
-    with open(filename, "rb") as f:
-        image_data = f.read()
-    download = st.download_button(label="Descargar QR", data = image_data, file_name = "imagen.png" )
+# Botón para generar y descargar el QR
+if st.button("Generar y Descargar QR"):
+    if url:
+        filename = st.text_input("Nombre del archivo (sin extensión):", value="qr_code")
+        if filename:
+            filename += ".png"
+            generador_qr(url, filename)
+            st.success("QR generado y descargado correctamente como '{}'.".format(filename))
+        else:
+            st.error("Ingrese un nombre de archivo válido.")
+    else:
+        st.error("Ingrese una URL.")
