@@ -1,7 +1,7 @@
 import qrcode
 import streamlit as st
 
-filename = "/imagenes/qr_code.png"
+filename = "/qr_code.png"
 
 def generador_qr(url, filename):
     qr = qrcode.QRCode(
